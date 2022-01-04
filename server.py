@@ -58,6 +58,10 @@ def purchase_places():
         # It's impossible to reserve more than 12 places in a same tournament
         message = "You cannot reserve more than 12 places sorry !!"
         return render_template('booking.html', club=club, competition=competition, message=message)
+    elif places_required > club['points']:
+        # Club does not have enough points
+        message = f"You don't have enough points ! You can reserve {club['points']} places maximum"
+        return render_template('booking.html', club=club, competition=competition, message=message)
     else:
         competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - places_required
         flash('Great-booking complete!')
