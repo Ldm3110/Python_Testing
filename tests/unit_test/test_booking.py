@@ -1,4 +1,4 @@
-class TestPurchase:
+class TestBooking:
 
     def test_user_cannot_reserve_more_than_12_places(self, client, test_clubs,
                                                      test_competitions, testing_config):
@@ -34,3 +34,15 @@ class TestPurchase:
         response = client.post('/purchasePlaces', data=data, follow_redirects=True)
         response_decode = response.data.decode()
         assert "enough places !" in response_decode
+
+    def test_user_reserve_places(self, client, test_clubs, test_competitions, testing_config):
+        expected_number_of_points = 10
+        expected_places_remaining = 12
+        data = {
+            "club": test_clubs[0]["name"],
+            "competition": test_competitions[0]["name"],
+            "places": 3,
+        }
+        client.post('/purchasePlaces', data=data, follow_redirects=True)
+        assert test_clubs[0]['points'] == expected_number_of_points
+        assert test_competitions[0]['numberOfPlaces'] == expected_places_remaining
