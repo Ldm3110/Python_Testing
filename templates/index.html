@@ -16,4 +16,13 @@
         <input type="email" name="email" id=""/>
         <button type="submit">Enter</button>
     </form>
+    <br>
+    <hr>
+    <h4 style="text-decoration: underline">List of points available for all clubs :</h4>
+    {% for club in clubs %}
+        <ul>
+            <li><strong>{{ club['name'] }}</strong><br></li>
+            <p><em>Points available actually : {{ club['points'] }}</em></p>
+        </ul>
+    {% endfor %}
 {% endblock %}
