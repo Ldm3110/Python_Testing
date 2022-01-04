@@ -1,3 +1,4 @@
+import datetime
 import json
 from flask import Flask, render_template, request, redirect, flash, url_for, abort
 
@@ -19,6 +20,7 @@ def load_competitions():
 
 competitions = load_competitions()
 clubs = load_clubs()
+date = datetime.datetime.now()
 
 
 @app.route('/')
@@ -34,7 +36,7 @@ def show_summary():
     except IndexError:
         abort(500)
 
-    return render_template('welcome.html', club=club, competitions=competitions)
+    return render_template('welcome.html', club=club, competitions=competitions, date=date)
 
 
 @app.route('/book/<competition>/<club>')
@@ -87,6 +89,7 @@ def logout():
 #   ERRORS MANAGER
 # ==================
 
+@app.route('/')
 @app.errorhandler(500)
 def email_does_not_exist(error):
     print(error)

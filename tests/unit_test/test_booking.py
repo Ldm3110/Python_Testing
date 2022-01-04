@@ -46,3 +46,14 @@ class TestBooking:
         client.post('/purchasePlaces', data=data, follow_redirects=True)
         assert test_clubs[0]['points'] == expected_number_of_points
         assert test_competitions[0]['numberOfPlaces'] == expected_places_remaining
+
+    def test_cannot_book_because_tournament_is_ending(self, client, test_clubs, test_competitions, testing_config):
+        expected_message = "Tournament Finished"
+        data = {
+            "email": test_clubs[0]['email'],
+            "competition": test_competitions[0]["name"],
+        }
+        response = client.post("/showSummary", data=data, follow_redirects=True)
+        response_decode = response.data.decode()
+        print(response_decode)
+        assert expected_message in response_decode
