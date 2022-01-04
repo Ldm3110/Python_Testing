@@ -22,3 +22,15 @@ class TestPurchase:
         response = client.post('/purchasePlaces', data=data, follow_redirects=True)
         response_decode = response.data.decode()
         assert "have enough points" in response_decode
+
+    def test_user_cannot_reserve_more_than_available_in_tournament(self, client, test_clubs,
+                                                                   test_competitions, testing_config):
+        test_competitions[0]['numberOfPlaces'] = 2
+        data = {
+            "club": test_clubs[0]["name"],
+            "competition": test_competitions[0]["name"],
+            "places": 4,
+        }
+        response = client.post('/purchasePlaces', data=data, follow_redirects=True)
+        response_decode = response.data.decode()
+        assert "enough places !" in response_decode
