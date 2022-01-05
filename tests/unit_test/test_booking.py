@@ -55,5 +55,4 @@ class TestBooking:
         }
         response = client.post("/showSummary", data=data, follow_redirects=True)
         response_decode = response.data.decode()
-        print(response_decode)
         assert expected_message in response_decode
