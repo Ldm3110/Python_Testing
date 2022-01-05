@@ -36,7 +36,7 @@ class TestBooking:
         assert "enough places !" in response_decode
 
     def test_user_reserve_places(self, client, test_clubs, test_competitions, testing_config):
-        expected_number_of_points = 10
+        expected_number_of_points = 4
         expected_places_remaining = 12
         data = {
             "club": test_clubs[0]["name"],

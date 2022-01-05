@@ -54,27 +54,28 @@ def book(competition, club):
 def purchase_places():
     competition = [c for c in competitions if c['name'] == request.form['competition']][0]
     club = [c for c in clubs if c['name'] == request.form['club']][0]
-    places_required = int(request.form['places'])
+    places_needed = int(request.form['places'])
+    points_required = 3 * places_needed
+    reservable_places = round(int(club['points']) / 3)
 
-    if places_required > 12:
+    if places_needed > 12:
         # It's impossible to reserve more than 12 places in a same tournament
         message = "You cannot reserve more than 12 places sorry !!"
         return render_template('booking.html', club=club, competition=competition, message=message)
 
-    elif places_required > int(club['points']):
+    elif places_needed > reservable_places:
         # Club does not have enough points
-        message = f"You don't have enough points ! You can reserve {club['points']} places maximum"
+        message = f"You don't have enough points ! You can reserve {reservable_places} places maximum"
         return render_template('booking.html', club=club, competition=competition, message=message)
 
-    elif places_required > int(competition["numberOfPlaces"]):
+    elif places_needed > int(competition["numberOfPlaces"]):
         # Tournament does not have enough places
         message = f"The competition doesn't have enough places ! " \
                   f"You can reserve {competition['numberOfPlaces']} places maximum"
         return render_template('booking.html', club=club, competition=competition, message=message)
-
     else:
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - places_required
-        club['points'] = int(club['points']) - places_required
+        competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - places_needed
+        club['points'] = int(club['points']) - points_required
         flash('Great-booking complete!')
 
     return render_template('welcome.html', club=club, competitions=competitions)
