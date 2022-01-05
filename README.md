@@ -1,51 +1,66 @@
 # gudlift-registration
 
-1. Why
+
+## 1. Installation
+
+   - First you need to clone the repository to your local machine :
+```
+$ git clone https://github.com/Ldm3110/Python_Testing.git
+```
+
+   - Come to the folder creating after the cloning :
+```
+$ cd Python_Testing
+```
+
+   - You must install a virtual environment on this folder to execute the app, for them type :
+```
+$ python3 -m venv env
+```
+   - After than, activate it :
+```
+$ source env/bin/activate
+```
+   - You must install all the packages necessary to the good functioning of the app
+```
+$ pip install -r requirements.txt
+```
+
+CONGRATULATIONS you're ready to use the application !!
 
 
-    This is a proof of concept (POC) project to show a light-weight version of our competition booking platform. The aim is the keep things as light as possible, and use feedback from the users to iterate.
+## 2. Test application
 
-2. Getting Started
+- All the tests are in the 'tests' folder, there are different types of test on this application :
 
-    This project uses the following technologies:
+   - Unit tests
+   - Performance tests
+   - Coverage test
 
-    * Python v3.x+
+- To perform all these test, we used the following packages :
 
-    * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+   - Pytest
+   - Coverage
+   - Locust
+   
+### Realize tests
 
-        Whereas Django does a lot of things for us out of the box, Flask allows us to add only what we need. 
-     
+#### For unit tests :
 
-    * [Virtual environment](https://virtualenv.pypa.io/en/stable/installation.html)
+From the project root, type <code> $ pytest -v </code>. You will see the report on your terminal or command prompt
 
-        This ensures you'll be able to install the correct packages without interfering with Python on your machine.
+#### For coverage tests :
 
-        Before you begin, please ensure you have this installed globally. 
+From the project root, type <code> $ pytest --cov=. --cov-report=html </code>. You will see a new folder on your 
+project named "htmlcov", go to that folder with <code> $ cd htmlcov </code> and type <code> $ open index.html </code>.
+You will be redirected to the coverage report on your browser 
 
+#### For performance tests :
 
-3. Installation
-
-    - After cloning, change into the directory and type <code>virtualenv .</code>. This will then set up a a virtual python environment within that directory.
-
-    - Next, type <code>source bin/activate</code>. You should see that your command prompt has changed to the name of the folder. This means that you can install packages in here without affecting affecting files outside. To deactivate, type <code>deactivate</code>
-
-    - Rather than hunting around for the packages you need, you can install in one step. Type <code>pip install -r requirements.txt</code>. This will install all the packages listed in the respective file. If you install a package, make sure others know by updating the requirements.txt file. An easy way to do this is <code>pip freeze > requirements.txt</code>
-
-    - Flask requires that you set an environmental variable to the python file. However you do that, you'll want to set the file to be <code>server.py</code>. Check [here](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application) for more details
-
-    - You should now be ready to test the application. In the directory, type either <code>flask run</code> or <code>python -m flask run</code>. The app should respond with an address you should be able to go to using your browser.
-
-4. Current Setup
-
-    The app is powered by [JSON files](https://www.tutorialspoint.com/json/json_quick_guide.htm). This is to get around having a DB until we actually need one. The main ones are:
-     
-    * competitions.json - list of competitions
-    * clubs.json - list of clubs with relevant information. You can look here to see what email addresses the app will accept for login.
-
-5. Testing
-
-    You are free to use whatever testing framework you like-the main thing is that you can show what tests you are using.
-
-    We also like to show how well we're testing, so there's a module called 
-    [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
+Go to he performance folder with <code> $ cd tests/performance_test/ </code> an just type <code> $ locust </code>.
+Open your browser and go to <code> http://0.0.0.0:8089 </code>. Indicate how many users you want to create during the
+test, the intervall enter each creation and the adress of your project. Here, it will be the following adress 
+<code> http://127.0.0.1:5000 </code>. Click on "Start swarming". The test begin.
+If you want to stop the test, clic on the "STOP' button at the top right of your browser window.
+    
 
